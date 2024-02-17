@@ -48,12 +48,11 @@ class Robot:
                 elif event.key == pygame.K_d:
                     self.vr -= Utils.meters2Pixel(0.001)
 
-        # differential drive control
         self.x += ((self.vl + self.vr) / 2) * math.cos(self.theta) * dt
         self.y -= ((self.vl + self.vr) / 2) * math.sin(self.theta) * dt
-        self.theta += (self.vr - self.vl) / self.b * dt
-
         change_in_theta = (self.vr - self.vl) / self.b * dt
+        self.theta += change_in_theta
+
         self.w = 0 if dt == 0 else change_in_theta / dt
         self.wl = (self.v - self.w * self.b / 2) / self.r
         self.wr = (self.v + self.w * self.b / 2) / self.r
