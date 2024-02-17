@@ -2,7 +2,7 @@ import pygame
 from presentation.colors import *
 from presentation.util import Utils
 
-from robot.differential_drive import Environment
+from robot.env import Environment
 from robot.robot import Robot
 
 if __name__ == "__main__":
@@ -14,7 +14,7 @@ if __name__ == "__main__":
     last_time = pygame.time.get_ticks()
 
     env = Environment(dims)
-    robot = Robot(start, "./assets/DDR.png", Utils.meters2Pixel(0.01))
+    robot = Robot(start, "./assets/DDR.png", Utils.meters2Pixel(0.01), Utils.meters2Pixel(0.001))
 
     while running:
         for event in pygame.event.get():
@@ -28,4 +28,6 @@ if __name__ == "__main__":
         env.map.fill(Color.Black.value)
         robot.move(dt)
         robot.draw(env.map)
-        env.write_info(int(robot.vl), int(robot.vr), robot.theta)
+        env.write_info(int(robot.vl), int(robot.vr), robot.wl, robot.wr, robot.theta)
+        env.trail((robot.x, robot.y))
+        env.robot_frame((robot.x, robot.y), robot.theta)
