@@ -26,8 +26,9 @@ if __name__ == "__main__":
         last_time = pygame.time.get_ticks()
         pygame.display.update()
         env.map.fill(Color.Black.value)
-        robot.move(dt)
-        robot.draw(env.map)
         env.write_info(int(robot.vl), int(robot.vr), robot.wl, robot.wr, robot.theta)
         env.trail((robot.x, robot.y))
         env.robot_frame((robot.x, robot.y), robot.theta)
+
+        robot.move(dt)
+        robot.draw(env.map)
